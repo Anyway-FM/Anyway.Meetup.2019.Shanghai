@@ -4,7 +4,7 @@ var stage1Height = 700
 var stage2Height = 700
 var stage3Height = 600
 
-var envelopeUpDistance = 60
+var envelopeUpDistance = 50
 var envelopeMiddleDistance = 10
 var envelopeDownDistance = 30
 var envelopeTilt =  55
@@ -24,14 +24,17 @@ window.onscroll = function(){
     var stage1Progress = window.scrollY / stage1Height
 
     //Package
-    var packageTopRotate = - stage1Progress * 180
-    var brightness = 0.3 + stage1Progress * 0.7
-    anime({
-      targets: '.package-top',
-      rotateX: packageTopRotate,
-      filter: "brightness(" + brightness + ")",
-      duration: 30
-    });
+    var packageTopRotate = Math.min( stage1Progress * 2 * 180, 180)
+    var brightness = Math.max( 1 - stage1Progress * 2 * 0.8,0.2)
+    // if (packageTopRotate > 90) {
+    //   document.getElementById('package-top').style.zIndex = "0"
+    // }
+    // anime({
+    //   targets: '.package-top',
+    //   rotateX: packageTopRotate,
+    //   filter: "brightness(" + brightness + ")",
+    //   duration: 30
+    // });
 
     //Envelope
     var envelopeMove = - stage1Progress * envelopeUpDistance
@@ -65,12 +68,14 @@ window.onscroll = function(){
       duration: 30
     });
     if (stage2Progress > 0.8) {
-      document.getElementById('envelope-top').style.zIndex = "6"
+      document.getElementById('envelope-top').style.zIndex = "2"
+      document.getElementById('letter').style.zIndex = "5"
+      document.getElementById('envelope-cover').style.zIndex = "6"
       anime({
         targets: '.letter',
-        rotate: 90,
+        rotate: 75,
         translateX:  "-8vh",
-        duration: 130
+        duration: 900
       });
 
     }
@@ -105,7 +110,7 @@ window.onscroll = function(){
 }
 
 function intoStage(n){
-  console.log("在第 "+n+" 阶段")
+  // console.log("在第 "+n+" 阶段")
   document.getElementById('main').dataset.stage = n
   stage = n
 }
