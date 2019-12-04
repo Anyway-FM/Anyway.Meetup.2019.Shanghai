@@ -23,6 +23,9 @@ body{
 	--envelopeWidth: 70vw;
 	--letterWidth: 50vw;
 }
+#desktop{
+	display: none;
+}
 .main{
 	height: 2400px;
 	transition: all .2s ease-out;
@@ -249,4 +252,16 @@ body{
 	77%{transform: translateY(-4vh) rotateZ(67deg);}
 	88%{transform: translateY(-5vh) rotateZ(80deg);} */
 	100%{transform: translateY(-8vh) rotateZ(75deg) translateZ(.1px);}
+}
+
+/* ~Desktop */
+[data-mobile = "0"] #main{
+	display: none;
+}
+[data-mobile = "0"] #desktop{
+	display: block;
+	position: fixed;
+	left: 0; top: 0;
+	width: 100vw; height: 100vh;
+	background: #0f0;
 }
