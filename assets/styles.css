@@ -24,7 +24,7 @@ body{
 	--letterWidth: 50vw;
 }
 .main{
-	height: 1300vh;
+	height: 2400px;
 	transition: all .2s ease-out;
 }
 .bg{
@@ -77,45 +77,34 @@ body{
 .envelope-top{
 	position: absolute;
 	left: 0; top: 0;
-	width: 100%; height: 60%;
-	background: #f4f3e0;
+	width: 100%; height: 100%;
+	background: url(envelope-top.png) no-repeat center top;
 	transform-origin: top;
-	/* transition: all .1s ease-out; */
+	background-size: cover;
 	opacity: 1;
-	/* backdrop-filter: blur(4px); */
 }
 /* ~Letter */
 .letter{
 	display: block;
-	width: calc(var(--envelopeWidth) * .4); height: calc(var(--envelopeWidth) * .6);
+	width: calc(var(--envelopeWidth) * .4); height: calc(var(--envelopeWidth) * .78);
 	transition: all .1s ease-out;
 	background: #2a2a2a url(letter.jpg) center center no-repeat;
 	background-size: contain;
 	position: absolute;
 	transform: rotate(90deg);
 	transform-origin: 50% 50%;
-	left: calc(var(--envelopeWidth) * .3); top: calc(var(--envelopeWidth) * .05 * -1);
-}
-[data-stage = "4"] .letter{
-	transform: scale(2.6) translateY(-12vh) rotate(0) !important;
-	transition: all .6s cubic-bezier(.58,.03,.08,.99);
-	animation: .6s addMask ease-out both;
-}
-@keyframes addMask {
-	0%{}
-	55%{box-shadow:0px 43px 33px -11px rgba(0,0,0,.24),0px 21.50px 28.73px -11px rgba(0,0,0,.36);}
-	100%{box-shadow:0 0 0 30vh #2a2a2a;z-index: 30;}
+	left: calc(var(--envelopeWidth) * .3); top: calc(var(--envelopeWidth) * .14 * -1);
 }
 .envelope-cover{
 	position: absolute;
 	left: 0; top: 0;
 	width: 100%; height: 100%;
 	background: url(envelope-cover.png) bottom no-repeat;
-	background-size: contain;
+	background-size: cover;
 	pointer-events: none;
 }
 .envelope-bg{
-	background: #0f0;
+	background: #83919e;
 	box-shadow:0px 34px 33px -5px rgba(0,0,0,.29),0px 17px 28.73px -5px rgba(0,0,0,.44);
 	position: absolute;
 	left: 0; top: 0;
@@ -129,39 +118,33 @@ body{
 	position: absolute;
 	left: 0; top: 0;
 	width: 100%; height: 100%;
-	opacity: 0;
 }
 .light img{
 	object-fit: contain;
 	width: 100%;
 	height: 100%;
 }
-[data-stage = "4"] .light-1{
-	animation: neon-show-1 .6s ease-in-out .8s both;
-}
-[data-stage = "4"] .neon-2{
-	animation: neon-show-2 .8s ease-in-out .8s both;
-}
-@keyframes neon-show-1 {
+.neon-1{animation: neon-1 1.2s ease-in-out .6s infinite both;}
+.neon-2{animation: neon-1 1.2s ease-in-out 1.2s infinite both;}
+@keyframes neon-1 {
 	0%{opacity: 0;}
-	10%{opacity: .6;}
-	5%{opacity: .2;}
-	21%{opacity: .5;}
-	33%{opacity: .1;}
-	45%{opacity: .8;}
-	75%{opacity: .4;}
-	95%{opacity: .8;}
-	100%{opacity: 1;}
+	2%{opacity: .9;}
+	4%{opacity: .4;}
+	6%{opacity: .7;}
+	7%{opacity: .3;}
+	8%{opacity: 1;}
+	45%{opacity: 1;}
+	48%{opacity: .5;}
+	50%{opacity: 0;}
+	100%{opacity: 0;}
 }
-@keyframes neon-show-2 {
+[data-stage = "4"] .final > .inner{
+	animation: neon-show .2s ease-in-out 1.2s both;
+}
+@keyframes neon-show {
 	0%{opacity: 0;}
-	20%{opacity: .6;}
-	26%{opacity: .2;}
-	29%{opacity: .5;}
-	33%{opacity: .1;}
-	41%{opacity: .8;}
-	67%{opacity: .4;}
-	88%{opacity: .8;}
+	33%{opacity: .6;}
+	66%{opacity: .1;}
 	100%{opacity: 1;}
 }
 
@@ -176,7 +159,51 @@ body{
 	background: #0f0;
 	width: 1rem; height: 1rem;
 }
-
+/* ~Final */
+.final-wrapper{
+	pointer-events: none;
+	opacity: 0;
+		z-index: 90;
+}
+.final{
+	width: calc(var(--envelopeWidth) * .4); height: calc(var(--envelopeWidth) * .78);
+	width: 100vw; height: 195vw;
+	background: #2a2a2a url(letter.jpg) center center no-repeat;
+	background-size: contain;
+}
+.final > .inner{
+	width: 100%; height: 100%;
+}
 /* ~Z-index */
-
 [data-stage = "1"] .package-wrapper-3{display: flex;}
+[data-stage = "1"] .letter{
+	transform: rotate(90deg);
+	display: none;
+}
+[data-stage = "4"] .envolope-cover{
+	opacity: 0;
+	transition-duration: .2s;
+}
+[data-open = "0"] .letter{
+	transform: rotate(90deg) !important;
+	animation: none !important;
+}
+
+[data-stage = "4"] .letter{
+	transform: translateY(-50vh) scale(3.57) rotate(0) !important;
+	transition: all 1.2s cubic-bezier(.58,.03,.08,.99);
+	animation: 1.2s addMask ease-out both;
+}
+@keyframes addMask {
+	0%{}
+	55%{box-shadow:0px 43px 33px -11px rgba(0,0,0,.24),0px 21.50px 28.73px -11px rgba(0,0,0,.36);z-index: 6;}
+	100%{box-shadow:0 0 0 30vh #2a2a2a;z-index: 30;}
+}
+[data-stage = "4"] .final-wrapper{
+	animation: 1.2s showFinal ease-out both;
+}
+@keyframes showFinal {
+	0%{pointer-events: none;}
+	85%{opacity:0;pointer-events: auto;}
+	100%{opacity: 1;}
+}

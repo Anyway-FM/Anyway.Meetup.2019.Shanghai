@@ -10,7 +10,6 @@ var envelopeDownDistance = 30
 var envelopeTilt =  55
 
 window.onscroll = function(){
-
   // Stage 1
   if (window.scrollY <= stage1Height) {
     if (stage != 1) {
@@ -51,7 +50,7 @@ window.onscroll = function(){
   else if (window.scrollY  <= stage1Height + stage2Height) {
     intoStage(2)
     var stage2Progress = ( window.scrollY - stage1Height ) / stage2Height
-
+    console.log(stage2Progress)
     // Envelope
     var envelopeMove = - envelopeUpDistance + stage2Progress * ( envelopeUpDistance + envelopeDownDistance)
     var envelopeRotate = (- stage2Progress / 2 + 0.5) * envelopeTilt
@@ -67,20 +66,29 @@ window.onscroll = function(){
       rotateX: envelopeTopRotate,
       duration: 30
     });
-    if (stage2Progress > 0.8) {
+    if (envelopeTopRotate > 90) {
       document.getElementById('envelope-top').style.zIndex = "2"
+    }
+    else {
+      document.getElementById('envelope-top').style.zIndex = "7"
+    }
+    if (stage2Progress > 0.8) {
       document.getElementById('letter').style.zIndex = "5"
       document.getElementById('envelope-cover').style.zIndex = "6"
+      document.getElementById('envelope-bg').style.zIndex = "4"
       anime({
         targets: '.letter',
         rotate: 75,
         translateX:  "-8vh",
         duration: 900
       });
-
+      document.getElementById('letter').dataset.open = 1
     }
     else {
-      document.getElementById('envelope-top').style.zIndex = "13"
+      document.getElementById('letter').style.zIndex = "5"
+      document.getElementById('envelope-cover').style.zIndex = "6"
+      document.getElementById('envelope-bg').style.zIndex = "4"
+      document.getElementById('letter').dataset.open = 0
       anime({
         targets: '.letter',
         rotate: 90,
@@ -116,12 +124,12 @@ function intoStage(n){
 }
 
 function openLetter(){
-  console.log("★")
   anime({
     targets: '.envelope',
-    translateY: envelopeDownDistance +"vh",
+    translateY: "50vh",
     rotate: 0,
-    duration: 30
+    duration: 600,
+    easing: 'easeOutQuart'
   });
   if (stage != 4) {
     intoStage(4)
