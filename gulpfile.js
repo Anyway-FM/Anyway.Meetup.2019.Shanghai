@@ -2,15 +2,15 @@ var gulp = require('gulp'), gulpLoadPlugins = require('gulp-load-plugins'), plug
 
 var htmlReplace = [
 	[ 'assets/vue.js', 'https://s.anw.red/js/vue.min.js' ],
-	[ 'assets/', 'https://s.anw.red/2019-guangdong/' ]
+	[ 'assets/', 'https://s.anw.red/2019-shanghai/' ]
 ];
 
 var cssReplace = [
-	[ 'url(', 'url(https://s.anw.red/2019-guangdong/' ]
+	[ 'url(', 'url(https://s.anw.red/2019-shanghai/' ]
 	// [ '\'images/', '\'https://s.anw.red/anyway.fm/' ],
 ];
 
-gulp.task('default', function() {
+gulp.task('default', function(done) {
 
 	gulp.src('index.html')
 		.pipe(plugins.cacheBust({
@@ -39,6 +39,7 @@ gulp.task('default', function() {
 	.pipe(plugins.cleanCss({compatibility: 'ie8'}))
   .pipe(gulp.dest('builds'));
 
+  done();
 });
 
 gulp.task('watch', function() {

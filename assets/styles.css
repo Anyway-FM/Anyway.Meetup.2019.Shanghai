@@ -18,7 +18,7 @@ body{
 	text-align: left;
 	color: #fff;
 	line-height: 1;
-	background: #333;
+	background: #1f1e24;
 	--packageWidth: 87vw;
 	--envelopeWidth: 70vw;
 	--letterWidth: 50vw;
@@ -34,7 +34,7 @@ body{
 	background: url(bg.jpg) no-repeat center center;
 	background-size: cover;
 	background-attachment: fixed;
-	background: #333;
+	background: #1f1e24;
 }
 .wrapper{
 	top: 0; left: 0;
@@ -73,6 +73,7 @@ body{
 	position: relative;
 	width: 100%; height: 100%;
 	perspective: 1000px;
+	transform-style: preserve-3d;
 }
 .envelope-top{
 	position: absolute;
@@ -82,18 +83,26 @@ body{
 	transform-origin: top;
 	background-size: cover;
 	opacity: 1;
+	/* transform-style: preserve-3d; */
+}
+#envelope-top-1{
+	backface-visibility: hidden;
+}
+#envelope-top-2{
+	background-image: url(envelope-top-2.png);
 }
 /* ~Letter */
 .letter{
 	display: block;
 	width: calc(var(--envelopeWidth) * .4); height: calc(var(--envelopeWidth) * .78);
-	transition: all .1s ease-out;
-	background: #2a2a2a url(letter.jpg) center center no-repeat;
+	transition: all .3s ease-out;
+	background: #38363e url(letter.jpg) center center no-repeat;
 	background-size: contain;
 	position: absolute;
-	transform: rotate(90deg);
+	transform: rotateZ(90deg);
 	transform-origin: 50% 50%;
 	left: calc(var(--envelopeWidth) * .3); top: calc(var(--envelopeWidth) * .14 * -1);
+	transform-style: preserve-3d;
 }
 .envelope-cover{
 	position: absolute;
@@ -104,7 +113,7 @@ body{
 	pointer-events: none;
 }
 .envelope-bg{
-	background: #83919e;
+	background: #201f24;
 	box-shadow:0px 34px 33px -5px rgba(0,0,0,.29),0px 17px 28.73px -5px rgba(0,0,0,.44);
 	position: absolute;
 	left: 0; top: 0;
@@ -168,27 +177,27 @@ body{
 .final{
 	width: calc(var(--envelopeWidth) * .4); height: calc(var(--envelopeWidth) * .78);
 	width: 100vw; height: 195vw;
-	background: #2a2a2a url(letter.jpg) center center no-repeat;
+	background: #38363e url(letter.jpg) center center no-repeat;
 	background-size: contain;
+	display: block;
 }
 .final > .inner{
 	width: 100%; height: 100%;
 }
 /* ~Z-index */
 [data-stage = "1"] .package-wrapper-3{display: flex;}
+[data-stage = "1"] #envelope-top-2{display: none;}
+/* [data-stage = "3"] #envelope-top-1{display: none;} */
 [data-stage = "1"] .letter{
 	transform: rotate(90deg);
 	display: none;
 }
+[data-stage = "1"] .final,
+[data-stage = "2"] .final{display: none;}
 [data-stage = "4"] .envolope-cover{
 	opacity: 0;
 	transition-duration: .2s;
 }
-[data-open = "0"] .letter{
-	transform: rotate(90deg) !important;
-	animation: none !important;
-}
-
 [data-stage = "4"] .letter{
 	transform: translateY(-50vh) scale(3.57) rotate(0) !important;
 	transition: all 1.2s cubic-bezier(.58,.03,.08,.99);
@@ -197,13 +206,36 @@ body{
 @keyframes addMask {
 	0%{}
 	55%{box-shadow:0px 43px 33px -11px rgba(0,0,0,.24),0px 21.50px 28.73px -11px rgba(0,0,0,.36);z-index: 6;}
-	100%{box-shadow:0 0 0 30vh #2a2a2a;z-index: 30;}
+	100%{box-shadow:0 0 0 30vh #38363e;z-index: 30;}
 }
 [data-stage = "4"] .final-wrapper{
 	animation: 1.2s showFinal ease-out both;
+	pointer-events: auto;
 }
 @keyframes showFinal {
 	0%{pointer-events: none;}
 	85%{opacity:0;pointer-events: auto;}
 	100%{opacity: 1;}
+}
+
+/* ~Substage */
+[data-sub = "1"] #envelope-top-1{z-index: 20;}
+[data-sub = "1"] #envelope-top-2{z-index: 19;}
+
+[data-sub = "2"] #envelope-bg{z-index: 0;}
+[data-sub = "2"] #envelope-top-1{z-index: 2; opacity: 0;transition: all .2s ease-out;}
+[data-sub = "2"] #envelope-top-2{z-index: 3;}
+[data-sub = "2"] #letter{transform: translateZ(1px) rotateZ(90deg);z-index: 5;}
+[data-sub = "2"] #envelope-cover{transform: translateZ(2px);z-index: 6;}
+
+[data-sub = "3"] #envelope-bg{z-index: 0;}
+[data-sub = "3"] #envelope-top-1{display: none;}
+[data-sub = "3"] #envelope-top-2{z-index: 2;transform: rotateX(180deg);}
+[data-sub = "3"] #letter{animation: letterUp .9s ease-in-out both;z-index: 5;}
+[data-sub = "3"] #envelope-cover{z-index: 6;}
+
+
+@keyframes letterUp {
+	0%{transform: rotateZ(90deg);}
+	100%{transform: translateY(-7vh) rotateZ(90deg);}
 }

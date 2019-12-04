@@ -14,7 +14,12 @@ window.onscroll = function(){
   if (window.scrollY <= stage1Height) {
     if (stage != 1) {
       anime({
-        targets: '.envelope-top',
+        targets: '#envelope-top-1',
+        rotateX: 0,
+        duration: 30
+      });
+      anime({
+        targets: '#envelope-top-2',
         rotateX: 0,
         duration: 30
       });
@@ -25,15 +30,6 @@ window.onscroll = function(){
     //Package
     var packageTopRotate = Math.min( stage1Progress * 2 * 180, 180)
     var brightness = Math.max( 1 - stage1Progress * 2 * 0.8,0.2)
-    // if (packageTopRotate > 90) {
-    //   document.getElementById('package-top').style.zIndex = "0"
-    // }
-    // anime({
-    //   targets: '.package-top',
-    //   rotateX: packageTopRotate,
-    //   filter: "brightness(" + brightness + ")",
-    //   duration: 30
-    // });
 
     //Envelope
     var envelopeMove = - stage1Progress * envelopeUpDistance
@@ -50,51 +46,47 @@ window.onscroll = function(){
   else if (window.scrollY  <= stage1Height + stage2Height) {
     intoStage(2)
     var stage2Progress = ( window.scrollY - stage1Height ) / stage2Height
-    console.log(stage2Progress)
+
     // Envelope
     var envelopeMove = - envelopeUpDistance + stage2Progress * ( envelopeUpDistance + envelopeDownDistance)
     var envelopeRotate = (- stage2Progress / 2 + 0.5) * envelopeTilt
-    var envelopeTopRotate = Math.pow( (stage2Progress - 0.2 ),0.4) * 180
+    var envelopeTopRotate = stage2Progress < 0.2 ? 0 : Math.pow( (stage2Progress - 0.2 ),0.4) * 180
+
+    console.log(envelopeTopRotate)
+
     anime({
       targets: '.envelope',
       translateY: envelopeMove+"vh",
       rotate: envelopeRotate,
       duration: 30
     });
-    anime({
-      targets: '.envelope-top',
-      rotateX: envelopeTopRotate,
-      duration: 30
-    });
-    if (envelopeTopRotate > 90) {
-      document.getElementById('envelope-top').style.zIndex = "2"
+
+    if (envelopeTopRotate < 90) { // Stage 2 初段
+      document.getElementById('envelope').dataset.sub = "1"
+      var substage = 1
     }
-    else {
-      document.getElementById('envelope-top').style.zIndex = "7"
+    else if (stage2Progress > 0.8) { // Stage 2 末段
+      document.getElementById('envelope').dataset.sub = "3"
+      var substage = 3
     }
-    if (stage2Progress > 0.8) {
-      document.getElementById('letter').style.zIndex = "5"
-      document.getElementById('envelope-cover').style.zIndex = "6"
-      document.getElementById('envelope-bg').style.zIndex = "4"
+    else { // Stage 2 中段
+      document.getElementById('envelope').dataset.sub = "2"
+      var substage = 2
+    }
+    if (substage < 3 ) {
       anime({
-        targets: '.letter',
-        rotate: 75,
-        translateX:  "-8vh",
-        duration: 900
-      });
-      document.getElementById('letter').dataset.open = 1
-    }
-    else {
-      document.getElementById('letter').style.zIndex = "5"
-      document.getElementById('envelope-cover').style.zIndex = "6"
-      document.getElementById('envelope-bg').style.zIndex = "4"
-      document.getElementById('letter').dataset.open = 0
-      anime({
-        targets: '.letter',
-        rotate: 90,
-        translateX:  "0",
+        targets: '#envelope-top-1',
+        rotateX: envelopeTopRotate,
         duration: 30
       });
+      anime({
+        targets: '#envelope-top-2',
+        rotateX: envelopeTopRotate,
+        duration: 30
+      });
+    }
+    else {
+      document.getElementById('envelope-top-2').style.transform = "rotateX(180deg)"
     }
 
   }
@@ -111,10 +103,6 @@ window.onscroll = function(){
 
   }
 
-  // Stage 4
-  // else {
-  //   intoStage(4)
-  // }
 }
 
 function intoStage(n){
