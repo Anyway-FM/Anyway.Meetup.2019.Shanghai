@@ -52,7 +52,7 @@ window.onscroll = function(){
     var envelopeRotate = (- stage2Progress / 2 + 0.5) * envelopeTilt
     var envelopeTopRotate = stage2Progress < 0.2 ? 0 : Math.pow( (stage2Progress - 0.2 ),0.4) * 180
 
-    console.log(envelopeTopRotate)
+    // console.log(envelopeTopRotate)
 
     anime({
       targets: '.envelope',
@@ -62,26 +62,26 @@ window.onscroll = function(){
     });
 
     if (envelopeTopRotate < 90) { // Stage 2 初段
-      document.getElementById('envelope').dataset.sub = "1"
       var substage = 1
     }
     else if (stage2Progress > 0.8) { // Stage 2 末段
-      document.getElementById('envelope').dataset.sub = "3"
       var substage = 3
     }
     else { // Stage 2 中段
-      document.getElementById('envelope').dataset.sub = "2"
       var substage = 2
     }
+    document.getElementById('envelope').dataset.sub = substage
     if (substage < 3 ) {
       anime({
         targets: '#envelope-top-1',
         rotateX: envelopeTopRotate,
+        translateZ: 0.3,
         duration: 30
       });
       anime({
         targets: '#envelope-top-2',
         rotateX: envelopeTopRotate,
+        translateZ: 0.25,
         duration: 30
       });
     }
@@ -112,8 +112,9 @@ function intoStage(n){
 }
 
 function openLetter(){
+  document.getElementById('envelope').dataset.sub = substage = "4";
   anime({
-    targets: '.envelope',
+    targets: '#envelope',
     translateY: "50vh",
     rotate: 0,
     duration: 600,

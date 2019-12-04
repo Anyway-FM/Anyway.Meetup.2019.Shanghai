@@ -83,6 +83,7 @@ body{
 	transform-origin: top;
 	background-size: cover;
 	opacity: 1;
+	pointer-events: none;
 	/* transform-style: preserve-3d; */
 }
 #envelope-top-1{
@@ -90,6 +91,7 @@ body{
 }
 #envelope-top-2{
 	background-image: url(envelope-top-2.png);
+	box-shadow: 0 -2px 0 #38363e;
 }
 /* ~Letter */
 .letter{
@@ -172,7 +174,8 @@ body{
 .final-wrapper{
 	pointer-events: none;
 	opacity: 0;
-		z-index: 90;
+	z-index: 90;
+	transform: translateZ(.6px);
 }
 .final{
 	width: calc(var(--envelopeWidth) * .4); height: calc(var(--envelopeWidth) * .78);
@@ -194,7 +197,7 @@ body{
 }
 [data-stage = "1"] .final,
 [data-stage = "2"] .final{display: none;}
-[data-stage = "4"] .envolope-cover{
+[data-stage = "4"] #envolope-cover{
 	opacity: 0;
 	transition-duration: .2s;
 }
@@ -219,23 +222,31 @@ body{
 }
 
 /* ~Substage */
+[data-sub = "1"] #envelope-bg{transform: translateZ(0);z-index: 1;}
 [data-sub = "1"] #envelope-top-1{z-index: 20;}
 [data-sub = "1"] #envelope-top-2{z-index: 19;}
+[data-sub = "1"] #letter{transform: translateZ(.1px) rotateZ(90deg);z-index: 5;}
+[data-sub = "1"] #envelope-cover{transform: translateZ(.2px);z-index: 6;}
 
 [data-sub = "2"] #envelope-bg{z-index: 0;}
 [data-sub = "2"] #envelope-top-1{z-index: 2; opacity: 0;transition: all .2s ease-out;}
 [data-sub = "2"] #envelope-top-2{z-index: 3;}
-[data-sub = "2"] #letter{transform: translateZ(1px) rotateZ(90deg);z-index: 5;}
-[data-sub = "2"] #envelope-cover{transform: translateZ(2px);z-index: 6;}
+[data-sub = "2"] #letter{transform: translateZ(.1px) rotateZ(90deg);z-index: 5;}
+[data-sub = "2"] #envelope-cover{transform: translateZ(.2px);z-index: 6;}
 
-[data-sub = "3"] #envelope-bg{z-index: 0;}
+[data-sub = "3"] #envelope-bg{z-index: 0;transform: translateZ(0)}
 [data-sub = "3"] #envelope-top-1{display: none;}
 [data-sub = "3"] #envelope-top-2{z-index: 2;transform: rotateX(180deg);}
-[data-sub = "3"] #letter{animation: letterUp .9s ease-in-out both;z-index: 5;}
-[data-sub = "3"] #envelope-cover{z-index: 6;}
+/* [data-sub = "3"] #letter{animation: letterUp .6s cubic-bezier(.58,.03,.08,.99) both;z-index: 5;} */
+[data-sub = "3"] #letter{transform: translateY(-8vh) rotateZ(75deg) translateZ(.1px);z-index: 5;}
+[data-sub = "3"] #envelope-cover{z-index: 6;transform: translateZ(.15px)}
 
+[data-sub = "4"] #envelope-top-1{display: none;}
 
 @keyframes letterUp {
-	0%{transform: rotateZ(90deg);}
-	100%{transform: translateY(-7vh) rotateZ(90deg);}
+	0%{transform: rotateZ(90deg) translateZ(.1px);}
+	/* 66%{transform: translateY(-3vh) rotateZ(85deg);}
+	77%{transform: translateY(-4vh) rotateZ(67deg);}
+	88%{transform: translateY(-5vh) rotateZ(80deg);} */
+	100%{transform: translateY(-8vh) rotateZ(75deg) translateZ(.1px);}
 }
