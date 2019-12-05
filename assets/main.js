@@ -1,4 +1,3 @@
-
 var stage = 1
 var stage1Height = 700
 var stage2Height = 700
@@ -8,6 +7,14 @@ var envelopeUpDistance = 50
 var envelopeMiddleDistance = 10
 var envelopeDownDistance = 30
 var envelopeTilt =  55
+
+window.onload = function(){
+  checkScreenSize()
+}
+
+window.onresize = function(){
+  checkScreenSize()
+}
 
 window.onscroll = function(){
   // Stage 1
@@ -29,7 +36,6 @@ window.onscroll = function(){
 
     //Package
     var packageTopRotate = Math.min( stage1Progress * 2 * 180, 180)
-    var brightness = Math.max( 1 - stage1Progress * 2 * 0.8,0.2)
 
     //Envelope
     var envelopeMove = - stage1Progress * envelopeUpDistance
@@ -124,4 +130,13 @@ function openLetter(){
     intoStage(4)
   }
 
+}
+
+function checkScreenSize(){
+  if ( window.innerWidth / window.innerHeight < 0.75) {
+    document.body.dataset.mobile = 1
+  }
+  else {
+    document.body.dataset.mobile = 0
+  }
 }
