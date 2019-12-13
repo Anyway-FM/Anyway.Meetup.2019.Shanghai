@@ -14,7 +14,7 @@ body{
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	font-family: 'Anyway Type', 'Myriad Pro', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+	font-family: 'Myriad Pro', 'PingFang SC', 'Microsoft YaHei', sans-serif;
 	text-align: left;
 	color: #fff;
 	line-height: 1;
@@ -34,7 +34,7 @@ body{
 	position: fixed;
 	left: 0; top: 0;
 	width: 100vw; height: 100vh;
-	background: url(bg.jpg) no-repeat center center;
+	background: url('bg.jpg') no-repeat center center;
 	background-size: cover;
 	background-attachment: fixed;
 	background: #1f1e24;
@@ -54,12 +54,12 @@ body{
 	width: var(--packageWidth); height: calc(var(--packageWidth) * 1.4);
 }
 .package-1{
-	background: url(package-2.png) no-repeat center center;
+	background: url('package-2.png') no-repeat center center;
 	background-size: contain;
 }
 
 .package-2{
-	background: url(package.jpg) no-repeat center bottom;
+	background: url('package.jpg') no-repeat center bottom;
 	background-size: contain;
 }
 
@@ -82,7 +82,7 @@ body{
 	position: absolute;
 	left: 0; top: 0;
 	width: 100%; height: 100%;
-	background: url(envelope-top.png) no-repeat center top;
+	background: url('envelope-top.png') no-repeat center top;
 	transform-origin: top;
 	background-size: cover;
 	opacity: 1;
@@ -93,7 +93,7 @@ body{
 	backface-visibility: hidden;
 }
 #envelope-top-2{
-	background-image: url(envelope-top-2.png);
+	background-image: url('envelope-top-2.png');
 	box-shadow: 0 -2px 0 #38363e;
 }
 /* ~Letter */
@@ -101,7 +101,7 @@ body{
 	display: block;
 	width: calc(var(--envelopeWidth) * .4); height: calc(var(--envelopeWidth) * .78);
 	transition: all .3s ease-out;
-	background: #38363e url(letter.jpg) center center no-repeat;
+	background: #38363e url('letter.jpg') center center no-repeat;
 	background-size: contain;
 	position: absolute;
 	transform: rotateZ(90deg);
@@ -113,7 +113,7 @@ body{
 	position: absolute;
 	left: 0; top: 0;
 	width: 100%; height: 100%;
-	background: url(envelope-cover.png) bottom no-repeat;
+	background: url('envelope-cover.png') bottom no-repeat;
 	background-size: cover;
 	pointer-events: none;
 }
@@ -179,7 +179,7 @@ body{
 	opacity: 1;
 }
 .indicator > .inner{
-	background: url(indicator.png) no-repeat;
+	background: url('indicator.png') no-repeat;
 	background-size: contain;
 	width: 2rem; height: 2rem;
 	animation: shaking 1s ease-out infinite both;
@@ -202,7 +202,7 @@ body{
 .final{
 	width: calc(var(--envelopeWidth) * .4); height: calc(var(--envelopeWidth) * .78);
 	width: 100vw; height: 195vw;
-	background: #38363e url(letter.jpg) center center no-repeat;
+	background: #38363e url('letter.jpg') center center no-repeat;
 	background-size: contain;
 	display: block;
 }
@@ -283,7 +283,7 @@ body{
 	position: fixed;
 	left: 0; top: 0;
 	width: 100vw; height: 100vh;
-	background: #a8a8ac url(desktop.jpg) no-repeat center center;
+	background: #a8a8ac url('desktop.jpg') no-repeat center center;
 	background-size: cover;
 }
 .footer{
@@ -292,7 +292,28 @@ body{
 	padding: 3em 1em 1em;
 	width: 100vw;
 	text-align: center;
-	font-weight: 700;
+	font-weight: 400;
 	color: rgba(255,255,255,.7);
-	background: linear-gradient(0deg, rgba(0,0,0,.3) 0%, rgba(0,0,0,0) 100%);
+	font-size: 14px;
+	line-height: 1.56;
+	background: linear-gradient(0deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,0) 100%);
+	font-family: 'Anyway Type', 'Myriad Pro', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+
+}
+.footer a{
+	font-weight: 700;
+	color: #fff;
+	text-decoration: none;
+	border-bottom: 1px dotted rgba(255,255,255,.5);
+}
+.footer a:hover{
+	background:rgba(255,255,255,.2);
+}
+@font-face{
+	font-family: 'Anyway Type';
+	src: url("https://s.anw.red/font/calluna-sans-regular.woff2") format('woff2'),
+		url("https://s.anw.red/font/calluna-sans-regular.woff") format('woff');
+	font-weight: 400;
+	font-style: normal;
+	font-display: fallback;
 }

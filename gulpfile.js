@@ -6,7 +6,7 @@ var htmlReplace = [
 ];
 
 var cssReplace = [
-	[ 'url(', 'url(https://s.anw.red/2019-shanghai/' ]
+	[ 'url(\'', 'url(\'https://s.anw.red/2019-shanghai/' ]
 	// [ '\'images/', '\'https://s.anw.red/anyway.fm/' ],
 ];
 
